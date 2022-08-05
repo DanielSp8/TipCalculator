@@ -1,13 +1,32 @@
 import { StatusBar } from "expo-status-bar";
-import { Component } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      mealCost: 40,
       tipPercent: 15,
+      tipAmount: 0,
+      sumTotal: "",
     };
+
+    this.FindTipAmount = this.FindTipAmount.bind(this);
+  }
+
+  FindTipAmount() {
+    var tipPercent = parseFloat(this.state.tipPercent * 0.01);
+    var mealPrice = parseFloat(this.state.mealCost);
+    var tipFound = mealPrice * tipPercent;
+
+    var mealTotal = mealPrice + tipFound;
+
+    // alert(`this.state.mealCost ${this.state.mealCost}
+    //          this.state.tipPercent ${this.state.tipPercent}
+    //          this.state.tipAmount ${this.state.tipAmount}`);
+    this.setState({ tipAmount: tipFound });
+    this.setState({ sumTotal: mealTotal });
   }
 
   render() {
@@ -16,17 +35,50 @@ class App extends Component {
         <Text style={styles.titleText}>Tip Calculator</Text>
 
         <Text style={styles.regularText}>Meal Price</Text>
-        <TextInput style={styles.textInput} label="mealPrice"></TextInput>
+        <TextInput
+          name="mealCost"
+          autoComplete="off"
+          autoCorrect={false}
+          keyboardType="decimal-pad"
+          style={styles.textInput}
+          returnKeyType="next"
+          textAlign="center"
+          onChangeText={(mealCost) => this.setState({ mealCost })}
+          placeholder="Enter Price of Meal"
+          value={this.state.mealCost}
+        ></TextInput>
 
         <Text style={styles.regularText}>Gratuity Percent</Text>
         <TextInput
           style={styles.textInputTip}
-          placeholder="15"
-          label="tipPercentage"
-        ></TextInput>
+          name="tipPercentage"
+          autoComplete="off"
+          autoCorrect={false}
+          keyboardType="number-pad"
+          returnKeyType="next"
+          textAlign="center"
+          maxLength={3}
+          onChangeText={(tipPercent) => this.setState({ tipPercent })}
+          placeholder="Tip Percentage"
+        >
+          {this.state.tipPercent}
+        </TextInput>
+
+        <Button
+          onPress={this.FindTipAmount}
+          title="Find Tip"
+          color="deepskyblue"
+        />
 
         <Text style={styles.regularText}>Tip Amount</Text>
-        <Text style={styles.tipAmountText}></Text>
+        <Text style={styles.tipAmountText} name="tipAmountText">
+          {this.state.tipAmount}
+        </Text>
+
+        <Text style={styles.regularText}>Sum Total</Text>
+        <Text style={styles.totalAmountText} name="sumTotal">
+          {this.state.sumTotal}
+        </Text>
 
         <StatusBar style="auto" />
       </View>
@@ -73,6 +125,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     alignSelf: "center",
     backgroundColor: "deepskyblue",
+  },
+  totalAmountText: {
+    borderWidth: 1,
+    paddingLeft: 75,
+    fontSize: 14,
+    alignSelf: "center",
+    backgroundColor: "forestgreen",
   },
 });
 
