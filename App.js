@@ -13,20 +13,37 @@ class App extends Component {
     };
 
     this.FindTipAmount = this.FindTipAmount.bind(this);
+    this.ResetValues = this.ResetValues.bind(this);
+  }
+
+  ResetValues() {
+    this.setState({ tipAmount: 0 });
+    this.setState({ sumTotal: 0 });
   }
 
   FindTipAmount() {
     var tipPercent = parseFloat(this.state.tipPercent * 0.01);
     var mealPrice = parseFloat(this.state.mealCost);
     var tipFound = mealPrice * tipPercent;
-
     var mealTotal = mealPrice + tipFound;
 
-    // alert(`this.state.mealCost ${this.state.mealCost}
-    //          this.state.tipPercent ${this.state.tipPercent}
-    //          this.state.tipAmount ${this.state.tipAmount}`);
+    mealPrice = mealPrice.toFixed(2);
+    tipFound = tipFound.toFixed(2);
+    mealTotal = mealTotal.toFixed(2);
+
     this.setState({ tipAmount: tipFound });
     this.setState({ sumTotal: mealTotal });
+
+    if (isNaN(this.state.mealCost)) {
+      alert("Enter a valid number for the meal price!");
+      this.setState({ mealCost: 0 });
+      this.ResetValues();
+    }
+    if (isNaN(this.state.tipPercent)) {
+      alert("Enter a valid number for the tip percent!");
+      this.setState({ tipPercent: 15 });
+      this.ResetValues();
+    }
   }
 
   render() {
@@ -102,33 +119,33 @@ const styles = StyleSheet.create({
     borderRadius: 9,
   },
   regularText: {
-    fontSize: 18,
+    fontSize: 22,
   },
   textInput: {
     borderWidth: 1,
     paddingLeft: 25,
-    fontSize: 18,
+    fontSize: 22,
     alignSelf: "center",
     backgroundColor: "bisque",
   },
   tipAmountText: {
     borderWidth: 1,
     paddingLeft: 75,
-    fontSize: 18,
+    fontSize: 22,
     alignSelf: "center",
     backgroundColor: "deepskyblue",
   },
   textInputTip: {
     borderWidth: 1,
     paddingLeft: 50,
-    fontSize: 18,
+    fontSize: 22,
     alignSelf: "center",
     backgroundColor: "deepskyblue",
   },
   totalAmountText: {
     borderWidth: 1,
     paddingLeft: 75,
-    fontSize: 18,
+    fontSize: 24,
     alignSelf: "center",
     backgroundColor: "forestgreen",
   },
