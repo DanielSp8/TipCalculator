@@ -6,9 +6,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mealCost: 40,
+      mealCost: "",
       tipPercent: 15,
-      tipAmount: 0,
+      tipAmount: "",
       sumTotal: "",
     };
 
@@ -44,9 +44,9 @@ class App extends Component {
           returnKeyType="next"
           textAlign="center"
           onChangeText={(mealCost) => this.setState({ mealCost })}
-          placeholder="Enter Price of Meal"
-          value={this.state.mealCost}
-        ></TextInput>
+        >
+          {this.state.mealCost}
+        </TextInput>
 
         <Text style={styles.regularText}>Gratuity Percent</Text>
         <TextInput
@@ -59,7 +59,6 @@ class App extends Component {
           textAlign="center"
           maxLength={3}
           onChangeText={(tipPercent) => this.setState({ tipPercent })}
-          placeholder="Tip Percentage"
         >
           {this.state.tipPercent}
         </TextInput>
@@ -103,33 +102,33 @@ const styles = StyleSheet.create({
     borderRadius: 9,
   },
   regularText: {
-    fontSize: 14,
+    fontSize: 18,
   },
   textInput: {
     borderWidth: 1,
-    paddingLeft: 50,
-    fontSize: 14,
+    paddingLeft: 25,
+    fontSize: 18,
     alignSelf: "center",
     backgroundColor: "bisque",
   },
   tipAmountText: {
     borderWidth: 1,
     paddingLeft: 75,
-    fontSize: 14,
+    fontSize: 18,
     alignSelf: "center",
     backgroundColor: "deepskyblue",
   },
   textInputTip: {
     borderWidth: 1,
     paddingLeft: 50,
-    fontSize: 14,
+    fontSize: 18,
     alignSelf: "center",
     backgroundColor: "deepskyblue",
   },
   totalAmountText: {
     borderWidth: 1,
     paddingLeft: 75,
-    fontSize: 14,
+    fontSize: 18,
     alignSelf: "center",
     backgroundColor: "forestgreen",
   },
