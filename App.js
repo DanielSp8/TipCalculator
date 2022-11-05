@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  ImageBackground,
+} from "react-native";
+import RandomBackImage from "./BackgroundImages";
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +56,7 @@ class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ImageBackground source={RandomBackImage} style={styles.backgroundImage}>
         <Text style={styles.titleText}>Tip Calculator</Text>
 
         <Text style={styles.regularText}>Meal Price</Text>
@@ -97,7 +105,7 @@ class App extends Component {
         </Text>
 
         <StatusBar style="auto" />
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -105,9 +113,16 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     marginTop: 50,
+  },
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.7,
   },
   titleText: {
     fontSize: 36,
