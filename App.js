@@ -8,6 +8,7 @@ import {
   Button,
   ImageBackground,
 } from "react-native";
+import { Card } from "@rneui/themed";
 import RandomBackImage from "./BackgroundImages";
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
     this.setState({ sumTotalWithFifteenTip: 0 });
     this.setState({ sumTotalWithTwentyTip: 0 });
     this.setState({ sumTotalWithTwentyFiveTip: 0 });
+    this.setState({ shouldShow: false });
   }
 
   FindTipAmount() {
@@ -47,22 +49,25 @@ class App extends Component {
       mealPrice = mealPrice.toFixed(2);
       mealPrice = parseFloat(mealPrice);
 
+      var tipPercentFifteen = (mealPrice * 0.15).toFixed(2);
+      var tipPercentTwenty = (mealPrice * 0.2).toFixed(2);
+      var tipPercentTwentyFive = (mealPrice * 0.25).toFixed(2);
+      2;
+
       tipPercentFifteen = parseFloat(tipPercentFifteen);
       tipPercentTwenty = parseFloat(tipPercentTwenty);
       tipPercentTwentyFive = parseFloat(tipPercentTwentyFive);
 
-      var tipPercentFifteen = (mealPrice * 0.15).toFixed(2);
-      var tipPercentTwenty = (mealPrice * 0.2).toFixed(2);
-      var tipPercentTwentyFive = (mealPrice * 0.25).toFixed(2);
-
-      var sumWithFifteenTip = mealPrice + tipPercentFifteen;
-      var sumWithTwentyTip = mealPrice + tipPercentTwenty;
-      var sumWithTwentyFiveTip = mealPrice + tipPercentTwentyFive;
+      var sumWithFifteenTip = (mealPrice + tipPercentFifteen).toFixed(2);
+      var sumWithTwentyTip = (mealPrice + tipPercentTwenty).toFixed(2);
+      var sumWithTwentyFiveTip = (mealPrice + tipPercentTwentyFive).toFixed(2);
 
       this.setState({ shouldShow: true });
-      this.setState({ tipPercentFifteenAmount: tipPercentFifteen });
-      this.setState({ tipPercentTwentyAmount: tipPercentTwenty });
-      this.setState({ tipPercentTwentyFiveAmount: tipPercentTwentyFive });
+      this.setState({ tipPercentFifteenAmount: tipPercentFifteen.toFixed(2) });
+      this.setState({ tipPercentTwentyAmount: tipPercentTwenty.toFixed(2) });
+      this.setState({
+        tipPercentTwentyFiveAmount: tipPercentTwentyFive.toFixed(2),
+      });
       this.setState({ sumTotalWithFifteenTip: sumWithFifteenTip });
       this.setState({ sumTotalWithTwentyTip: sumWithTwentyTip });
       this.setState({ sumTotalWithTwentyFiveTip: sumWithTwentyFiveTip });
@@ -95,7 +100,7 @@ class App extends Component {
         />
 
         {this.state.shouldShow && (
-          <View>
+          <Card>
             <Text style={styles.tipAmountText} name="tipFifteenPercentText">
               15% Tip: ${this.state.tipPercentFifteenAmount}
             </Text>
@@ -103,15 +108,19 @@ class App extends Component {
               style={styles.tipAmountText}
               name="tipTotalFifteenPercentText"
             >
-              With Tip: ${this.state.sumTotalWithFifteenTip}
+              Meal with Tip: ${this.state.sumTotalWithFifteenTip}
             </Text>
+
+            <Card.Divider />
 
             <Text style={styles.tipAmountText} name="tipTwentyPercentText">
               20% Tip: ${this.state.tipPercentTwentyAmount}
             </Text>
             <Text style={styles.tipAmountText} name="tipTotalTwentyPercentText">
-              With Tip: ${this.state.sumTotalWithTwentyTip}
+              Meal with Tip: ${this.state.sumTotalWithTwentyTip}
             </Text>
+
+            <Card.Divider />
 
             <Text style={styles.tipAmountText} name="tipTwentyFivePercentText">
               25% Tip: ${this.state.tipPercentTwentyFiveAmount}
@@ -120,9 +129,9 @@ class App extends Component {
               style={styles.tipAmountText}
               name="tipTotalTwentyFivePercentText"
             >
-              With Tip: ${this.state.sumTotalWithTwentyFiveTip}
+              Meal with Tip: ${this.state.sumTotalWithTwentyFiveTip}
             </Text>
-          </View>
+          </Card>
         )}
         <StatusBar style="auto" />
       </ImageBackground>
