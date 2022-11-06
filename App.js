@@ -21,7 +21,7 @@ class App extends Component {
       sumTotalWithFifteenTip: "",
       sumTotalWithTwentyTip: "",
       sumTotalWithTwentyFiveTip: "",
-      displayTips: false,
+      shouldShow: false,
     };
 
     this.FindTipAmount = this.FindTipAmount.bind(this);
@@ -41,24 +41,25 @@ class App extends Component {
     var mealPrice = parseFloat(this.state.mealCost);
     if (isNaN(mealPrice)) {
       alert("Enter a valid number for the meal price!");
-      this.setState({ mealCost: 0 });
+      this.setState({ mealCost: "" });
       this.ResetValues();
     } else {
       mealPrice = mealPrice.toFixed(2);
       mealPrice = parseFloat(mealPrice);
 
-      var tipPercentFifteen = (mealPrice * 0.15).toFixed(2);
-      var tipPercentTwenty = (mealPrice * 0.2).toFixed(2);
-      var tipPercentTwentyFive = (mealPrice * 0.25).toFixed(2);
-
       tipPercentFifteen = parseFloat(tipPercentFifteen);
       tipPercentTwenty = parseFloat(tipPercentTwenty);
       tipPercentTwentyFive = parseFloat(tipPercentTwentyFive);
+
+      var tipPercentFifteen = (mealPrice * 0.15).toFixed(2);
+      var tipPercentTwenty = (mealPrice * 0.2).toFixed(2);
+      var tipPercentTwentyFive = (mealPrice * 0.25).toFixed(2);
 
       var sumWithFifteenTip = mealPrice + tipPercentFifteen;
       var sumWithTwentyTip = mealPrice + tipPercentTwenty;
       var sumWithTwentyFiveTip = mealPrice + tipPercentTwentyFive;
 
+      this.setState({ shouldShow: true });
       this.setState({ tipPercentFifteenAmount: tipPercentFifteen });
       this.setState({ tipPercentTwentyAmount: tipPercentTwenty });
       this.setState({ tipPercentTwentyFiveAmount: tipPercentTwentyFive });
@@ -93,27 +94,36 @@ class App extends Component {
           color="forestgreen"
         />
 
-        <Text style={styles.tipAmountText} name="tipFifteenPercentText">
-          15% Tip: ${this.state.tipPercentFifteenAmount}
-        </Text>
-        <Text style={styles.tipAmountText} name="tipFifteenPercentText">
-          With Tip: ${this.state.sumTotalWithFifteenTip}
-        </Text>
+        {this.state.shouldShow && (
+          <View>
+            <Text style={styles.tipAmountText} name="tipFifteenPercentText">
+              15% Tip: ${this.state.tipPercentFifteenAmount}
+            </Text>
+            <Text
+              style={styles.tipAmountText}
+              name="tipTotalFifteenPercentText"
+            >
+              With Tip: ${this.state.sumTotalWithFifteenTip}
+            </Text>
 
-        <Text style={styles.tipAmountText} name="tipTwentyPercentText">
-          20% Tip: ${this.state.tipPercentTwentyAmount}
-        </Text>
-        <Text style={styles.tipAmountText} name="tipTwentyPercentText">
-          With Tip: ${this.state.sumTotalWithTwentyTip}
-        </Text>
+            <Text style={styles.tipAmountText} name="tipTwentyPercentText">
+              20% Tip: ${this.state.tipPercentTwentyAmount}
+            </Text>
+            <Text style={styles.tipAmountText} name="tipTotalTwentyPercentText">
+              With Tip: ${this.state.sumTotalWithTwentyTip}
+            </Text>
 
-        <Text style={styles.tipAmountText} name="tipTwentyFivePercentText">
-          25% Tip: ${this.state.tipPercentTwentyFiveAmount}
-        </Text>
-        <Text style={styles.tipAmountText} name="tipTwentyFivePercentText">
-          With Tip: ${this.state.sumTotalWithTwentyFiveTip}
-        </Text>
-
+            <Text style={styles.tipAmountText} name="tipTwentyFivePercentText">
+              25% Tip: ${this.state.tipPercentTwentyFiveAmount}
+            </Text>
+            <Text
+              style={styles.tipAmountText}
+              name="tipTotalTwentyFivePercentText"
+            >
+              With Tip: ${this.state.sumTotalWithTwentyFiveTip}
+            </Text>
+          </View>
+        )}
         <StatusBar style="auto" />
       </ImageBackground>
     );
@@ -155,6 +165,7 @@ const styles = StyleSheet.create({
   },
   tipAmountText: {
     fontSize: 20,
+    fontWeight: "bold",
     alignSelf: "center",
   },
   totalAmountText: {
