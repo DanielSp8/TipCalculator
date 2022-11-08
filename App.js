@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
-  View,
   TextInput,
   Button,
   ImageBackground,
@@ -52,7 +51,6 @@ class App extends Component {
       var tipPercentFifteen = (mealPrice * 0.15).toFixed(2);
       var tipPercentTwenty = (mealPrice * 0.2).toFixed(2);
       var tipPercentTwentyFive = (mealPrice * 0.25).toFixed(2);
-      2;
 
       tipPercentFifteen = parseFloat(tipPercentFifteen);
       tipPercentTwenty = parseFloat(tipPercentTwenty);
@@ -140,11 +138,6 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    marginTop: 50,
-  },
   backgroundImage: {
     flex: 1,
     width: "100%",
@@ -176,13 +169,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     alignSelf: "center",
-  },
-  totalAmountText: {
-    borderWidth: 1,
-    paddingLeft: 75,
-    fontSize: 24,
-    alignSelf: "center",
-    backgroundColor: "forestgreen",
   },
 });
 
